@@ -5,12 +5,13 @@ import Actu from '../components/Actu';
 import Favorite from '../components/Favorite';
 import { getSession, useSession } from 'next-auth/react';
 import Modal from '../components/Modal';
+import React from 'react';
+
 
 const Home = ({user}) => {
 
   const {data:session} = useSession();
 
-  console.log(user)
   return (
     <div className='w-full'>
       <Head>
@@ -30,7 +31,7 @@ const Home = ({user}) => {
       {
         session && <Favorite />
       }
-      <Actu />
+      <Actu user={user} />
     </div>
   )
 }

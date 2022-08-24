@@ -1,22 +1,19 @@
 import React, { useEffect,useState } from 'react'
-import { collection, query, where, getDocs } from "firebase/firestore";
-import {db} from '../firebase';
 import Article from './Article';
-import { useSession } from 'next-auth/react';
+import {fetchArticles} from '../services/articleService';
 
-const Actu = () => {
+const Actu = ({user}) => {
 
 
     const [actus, setActus] = useState([]);
-    const {data:session} = useSession();
+
+
+   
 
     useEffect(()=> {
-        const fetchData = async () => {
-
-            const q = query(collection(db, "articles"));
-            const querySnapshot = await getDocs(q);
-            querySnapshot.docs.forEach((doc)=>console.log(doc.data()))
-            setActus(querySnapshot.docs.map((doc)=>{return {...doc.data(),id:doc.id}}))
+        const fetchData = async ()=> {
+            const articles = await fetchArticles();
+            setActus(articles);
         }
         fetchData();
     },[])
@@ -31,9 +28,9 @@ const Actu = () => {
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
 
             {
-                actus.map((actu,i) => 
+                actus.map((actu,i)=> 
                     (
-                       <Article article={actu} isLiked={false} key={i} />   
+                        <Article article={actu} isLiked={actu.likers.includes("mouradaliouachene86@gmail.com")} key={i} />
                     )
                 )
             }

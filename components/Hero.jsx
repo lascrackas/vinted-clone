@@ -1,6 +1,10 @@
 import React from 'react'
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+
+    const router = useRouter();
+
   return (
     <div className='relative'>
         <div className='flex flex-col md:relative '>
@@ -9,7 +13,7 @@ const Hero = () => {
                 <h1 className='text-2xl md:font-medium  md:text-4xl pt-6 pb-2'>Pret a faire du tri dans vos placard ? </h1>
                 
                 <p>
-                    <button className='bg-[#0e8c93] w-full m-0 p-3 text-white rounded-md'>Vends maintenant</button>
+                    <button onClick={()=> router.push('/member/signup')} className='bg-[#0e8c93] w-full m-0 p-3 text-white rounded-md'>Vends maintenant</button>
                 </p>
                 <p className='text-[#0e8c93]  mt-2'>
                     Decouvrir comment ca marche

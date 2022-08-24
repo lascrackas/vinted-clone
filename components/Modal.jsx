@@ -1,50 +1,13 @@
-import React,{Fragment, useRef, useState} from 'react'
+import React,{Fragment} from 'react'
 import {useRecoilState} from 'recoil';
 import {modalState} from '../atoms/ModalAtom';
 import { Dialog,Transition } from '@headlessui/react'
-import { CameraIcon } from '@heroicons/react/outline';
-import { useSession } from 'next-auth/react';
 import Signup from '../components/Signup';
 
 const Modal = () => {
     
     const [open,setOpen] = useRecoilState(modalState);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const filePickerRef = useRef(null);
-    const captionRef = useRef(null);
-    const {data:session} = useSession();
 
-
-    const addImageToPost = (e) => {
-        console.log(e.target.files)
-        const reader = new FileReader();
-        if(e.target.files[0]){
-            reader.readAsDataURL(e.target.files[0])
-        }
-
-        reader.onload = (readerEvent) => {
-            setSelectedFile(readerEvent.target.result);
-        }
-    }
-
-    const uploadPost = async () => {
-        if(loading) return
-
-        setLoading(true);
-
-        setOpen(false);
-
-
-       
-
-       
-
-
-        setLoading(false);
-        setSelectedFile(null);
-
-    } 
 
     return (
         <>

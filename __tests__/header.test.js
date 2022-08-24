@@ -1,6 +1,6 @@
 const { render,screen } = require("@testing-library/react")
 import Header from '../components/Header';
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 import { RecoilRoot } from 'recoil';
 
 
@@ -27,6 +27,7 @@ test('should not show menu when user is not logged in ',()=> {
     const menu = screen.queryByTestId("menu");
     expect(menu).toBeNull();
 })
+
 
 test('should show menu when user is logged in ',()=> {
     const user = {

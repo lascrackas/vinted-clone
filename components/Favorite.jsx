@@ -1,9 +1,8 @@
 import React, { useEffect,useState } from 'react'
-import { doc, getDoc } from "firebase/firestore";
-import {db} from '../firebase';
 import Article from './Article';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { getFavorites } from '../services/articleService.js';
 
 const Favorite = () => {
 
@@ -12,22 +11,12 @@ const Favorite = () => {
     const {data:session} = useSession();
     const router = useRouter();
 
+    const fetchData = async () => {
+        const articles = await getFavorites(session?.user.email);
+        setFavorites(articles);
+    }
+
     useEffect(()=> {
-        const fetchData = async () => {
-            const user = await getDoc(doc(db,"users",session.user.email));
-            if(user.exists()){
-                const likedArticlesRefs = user.data().likedArticles;
-                const articles = [];
-                await Promise.all(
-                    likedArticlesRefs.map((articleId)=> {
-                        return getDoc(doc(db,'articles',articleId)).then((article)=> {
-                            articles.push({...article.data(),id:article.id})
-                        })
-                    })
-                )
-                setFavorites(articles);
-            }
-        }
         fetchData();
     },[session])
 

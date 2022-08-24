@@ -15,7 +15,6 @@ const Popular = () => {
 
             const q = query(collection(db, "articles"),where("likes",">=",4));
             const querySnapshot = await getDocs(q);
-            querySnapshot.docs.forEach((doc)=>console.log(doc.data()))
             setPopulars(querySnapshot.docs.map((doc)=>{return {...doc.data(),id:doc.id}}))
         }
         fetchData();

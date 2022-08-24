@@ -15,11 +15,9 @@ const Header = ({user}) => {
     const [open,setOpen] = useRecoilState(modalState);
     const [openMenu,setOpenMenu] = useState(false);
 
-    const test = () => {
-        console.log("test");
-        setOpen(true);
+    const signinOut = async () => {
+        await signOut();
     }
-
 
   return (
     <div className='z-10 bg-white'>
@@ -67,7 +65,7 @@ const Header = ({user}) => {
                         
                     }
                     { !user && <div data-testid="login-buttons">
-                        <button onClick={test}  className='flex-shrink-0 text-xs mr-2 py-1 px-2 rounded-md border text-[#0e8c93] border-[#0e8c93]'>S'inscrire | Se connecter </button>
+                        <button onClick={()=> setOpen(true)}   className='flex-shrink-0 text-xs mr-2 py-1 px-2 rounded-md border text-[#0e8c93] border-[#0e8c93]'>S'inscrire | Se connecter </button>
                         <button  onClick={()=> router.push('/member/signup')} className='text-white text-xs flex-shrink-0 bg-[#0e8c93] p-[6px] rounded-md'>Vends maintenant</button>
                     </div>
                     }
@@ -92,7 +90,7 @@ const Header = ({user}) => {
                                     <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Personnalisation</a>
                                     <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Mon porte-monnaie 0,00 &euro;</a>
                                     <form method="POST" action="#" role="none">
-                                        <button  onClick={()=> signOut({callbackUrl:"/"})}   type="submit" className="text-gray-700 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">Deconnexion</button>
+                                        <button  onClick={signinOut}   type="submit" className="text-gray-700 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">Deconnexion</button>
                                     </form>
                                     </div>
                                 </div>
