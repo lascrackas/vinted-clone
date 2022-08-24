@@ -53,6 +53,18 @@ const FavoriteList = ({user}) => {
         </div>
     </div>
 }
+{
+    favorites.length===0 &&
+    <div className='p-6'>
+        <h1 className='text-3xl'> Articles Favoris</h1>
+        <div className='flex flex-col items-center mt-20 justify-center'>
+            <p className='text-3xl mb-8'>Enregistre tes favoris</p>
+            <p className='text-gray-400'>Ajoutes des articles dans les favoris et retrouve les ici</p>
+
+        </div>
+    </div>
+    
+}
 </>
   )
 }

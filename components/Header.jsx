@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuIcon, SearchIcon,QuestionMarkCircleIcon,MailIcon,BellIcon,HeartIcon } from '@heroicons/react/outline';
+import { MenuIcon, SearchIcon,QuestionMarkCircleIcon,MailIcon,BellIcon,HeartIcon, XIcon } from '@heroicons/react/outline';
 import {signOut} from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,9 +14,10 @@ const Header = ({user}) => {
     const router = useRouter();
     const [open,setOpen] = useRecoilState(modalState);
     const [openMenu,setOpenMenu] = useState(false);
+    const [showbigMenu, setShowBigMenu] = useState(false);
 
     const signinOut = async () => {
-        await signOut();
+        await signOut({callbackUrl:"/member/signup"});
     }
 
   return (
@@ -32,12 +33,67 @@ const Header = ({user}) => {
                             <HeartIcon onClick={()=> router.push('/member/items/favourite_list')}  className='w-6 cursor-pointer'/>
                         </div>
                     }
-                <MenuIcon className='text-gray-400 w-7 header-breakpoint:hidden cursor-pointer' />
+                <MenuIcon onClick={()=> setShowBigMenu(true)} className='text-gray-400 w-7 header-breakpoint:hidden cursor-pointer' />
+                {
+                    showbigMenu && <div className='absolute top-0 left-0 bottom-0 right-0 w-full bg-white  h-screen overflow-y-scroll'>
+                    <p className='flex justify-end'>
+
+                    <XIcon onClick={()=> setShowBigMenu(false)} className='w-10' />
+                    </p>
+                    <div className='p-6'>
+                        <div className='flex flex-col'>
+                            {user &&
+                            <>
+                                <button onClick={()=> router.push('/items/new')} className='bg-[#0e8c93] p-2 mb-2 rounded-md text-md text-white'>Vends tes articles</button>
+                                <button className='rounded-md text-[#0e8c93] p-2 bg-white border border-[#0e8c93]'>Ton guide vinted</button>
+                            </>
+        
+                            }
+                            {
+                                !user &&
+                                <>
+                                    <button onClick={()=> router.push('/member/signup')} className='bg-[#0e8c93] p-2 mb-2 rounded-md text-md text-white'>Vends tes articles</button>
+                                    <button onClick={()=> setOpen(true)} className='rounded-md text-[#0e8c93] p-2 bg-white border border-[#0e8c93]'>S'inscrire | Se connecter</button>
+                                </>
+                            }
+                            
+                            <p className='text-sm mt-4 p-4'>Parcourir</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Femme</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Homme</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Enfant</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Maison</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Divertissement</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]'>Animaux</p>
+
+                            {user &&
+                                <>
+                                    <p className='text-sm mt-4 p-4'>Mon compte</p>
+                                    <p onClick={()=> router.push("/member/profil")} className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Mon profil</p>
+                                    <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Mes parametres</p>
+                                    <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Personnalisation</p>
+                                    <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Mon porte-monnaie</p>
+                                    <p onClick={signinOut} className='text-md border-b border-b-gray-200 p-4 text-red-600' >Se deconnecter</p>
+                                
+                                </>
+                            }
+
+
+
+                            <p className='text-sm mt-4 p-4'>Decouvrir</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Comment ca marche</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Applications mobiles</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Centre d'aide</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Tableau de bord</p>
+                            <p className='text-md border-b border-b-gray-200 p-4 text-[#0e8c93]' >Vinted pro</p>
+                        </div>
+                    </div>
+                </div>
+                }
             </div>
             <div>
            
             </div>
-            <div className='flex flex-1 header-breakpoint:mx-12 items-center bg-gray-200  px-2 py-[6px] rounded-sm mt-2'>
+            <div className='flex flex-1 header-breakpoint:mx-12 items-center bg-gray-200 px-2  mx-6 py-[6px] rounded-sm mt-2'>
                {/*  <select  className='outline-none bg-transparent' name="section-search" id="section-search">
                     <option className='bg-white' value="articles">Articles</option>
                     <option value="member">Membres</option>
