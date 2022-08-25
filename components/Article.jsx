@@ -38,7 +38,9 @@ const Article = ({article,isLiked,isProfile = false}) => {
   return (
     <div className='basis-52 mb-4 cursor-pointer flex-shrink-0 flex-grow-0 mr-3 '>
       <div className='bg-gray-500'>
+        {article.img &&
         <img onClick={()=> router.push(`/article/${article.id}`)}   className='w-full h-72 object-cover' src={article.img[0]} />
+        }
       </div>
     <p className='m-0 text-md font-normal flex items-center justify-between'>
          <span className='flex items-center'>{article.price.toFixed(2).replace(".",",")} &euro; <InformationCircleIcon className='h-5 ml-1 text-gray-400' /> </span> 

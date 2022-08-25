@@ -30,7 +30,7 @@ const Actu = ({user}) => {
             {
                 actus.map((actu,i)=> 
                     (
-                        <Article article={actu} isLiked={actu.likers.includes("mouradaliouachene86@gmail.com")} key={i} />
+                        <Article article={actu} isLiked={actu.likers?.includes("mouradaliouachene86@gmail.com")} key={i} />
                     )
                 )
             }

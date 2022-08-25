@@ -67,10 +67,12 @@ const Article = ({user}) => {
             <p>Ajouté</p>
           </div>
           <div className='w-full uppercase text-sm'>
-            <p>Nike</p>
-            <p>Nike</p>
-            <p>Nike</p>
-            <p>Nike</p>
+            <p>{article?.brand}</p>
+            <p>NEUF</p>
+            <p>Paris</p>
+            <p>Cb, Paypal</p>
+            <p>10</p>
+            <p>il y a 1h</p>
           </div>
         </div>
 
